@@ -35,9 +35,12 @@ parameters:
   - id: enableStorage
     name: Enable Storage
     description: Create an optional Azure Storage Account.
-    type: boolean
+    type: string
     required: false
-    default: true
+    default: "true"
+    allowed:
+      - "true"
+      - "false"
 
   - id: envType
     name: Environment Type
