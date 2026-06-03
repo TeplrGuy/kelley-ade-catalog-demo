@@ -1,0 +1,62 @@
+name: webapp-terraform-demo
+version: 1.0.0
+summary: Deploy a governed Linux App Service web environment with Terraform.
+description: App Service plan, Linux web app, and optional storage using Terraform.
+runner: Terraform
+templatePath: main.tf
+
+parameters:
+  - id: environment_name
+    name: Environment Name
+    description: Name prefix for resources.
+    type: string
+    default: webapp-tf-demo
+
+  - id: resource_group_name
+    name: Resource Group Name
+    description: Existing resource group where resources will be deployed.
+    type: string
+
+  - id: location
+    name: Azure Region
+    description: Azure region for all resources.
+    type: string
+    default: eastus
+
+  - id: app_service_plan_sku
+    name: App Service Plan SKU
+    description: SKU for Linux App Service Plan.
+    type: string
+    default: B1
+    allowed:
+      - B1
+      - S1
+      - P1v3
+
+  - id: env_type
+    name: Environment Type
+    description: Environment classification.
+    type: string
+    default: dev
+    allowed:
+      - dev
+      - staging
+      - prod
+
+  - id: enable_storage
+    name: Enable Storage
+    description: Deploy optional storage account for app use.
+    type: boolean
+    default: true
+
+  - id: department
+    name: Department
+    description: Department tag.
+    type: string
+    default: platform-engineering
+
+  - id: cost_center
+    name: Cost Center
+    description: Cost center tag.
+    type: string
+    default: engineering

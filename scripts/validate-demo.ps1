@@ -133,13 +133,14 @@ function Validate-ResourceGroup {
     Write-Header "Validating Resource Group"
 
     Write-Check "Resource group exists: $ResourceGroupName..."
-    $rgExists = az group exists --name $ResourceGroupName --query "boolean()" 2>$null
+    $rgExists = az group exists --name $ResourceGroupName 2>$null
     
     if ($LASTEXITCODE -eq 0 -and $rgExists -eq "true") {
         Write-Pass
         
         Write-Check "Resource group has resources..."
-        $resourceCount = az resource list --resource-group $ResourceGroupName --query "length(@)" 2>$null
+        $resourceList = az resource list --resource-group $ResourceGroupName -o json 2>$null | ConvertFrom-Json
+        $resourceCount = @($resourceList).Count
         if ($resourceCount -gt 0) {
             Write-Host " [$resourceCount resources]" -ForegroundColor Green
             Write-Pass
@@ -210,25 +211,24 @@ function Validate-CatalogEnvironments {
     Write-Header "Validating Catalog Environments"
 
     Write-Check "Catalog contains environment definitions..."
-    $environments = az devcenter admin catalog environment-definition list `
-        --resource-group $ResourceGroupName `
+    $environmentList = az devcenter dev environment-definition list `
+        --project-name $ProjectName `
         --dev-center-name $DevCenterName `
-        --catalog-name $CatalogName `
-        --query "length(@)" `
-        2>$null
+        -o json `
+        2>$null | ConvertFrom-Json
+    $environments = @($environmentList).Count
 
-    if ($LASTEXITCODE -eq 0 -and $environments -gt 0) {
+    if ($environments -gt 0) {
         Write-Host " [$environments environment(s)]" -ForegroundColor Green
         Write-Pass
         
         # Show environment definitions
         Write-Host ""
         Write-Host "Available environment definitions:" -ForegroundColor Cyan
-        $envList = az devcenter admin catalog environment-definition list `
-            --resource-group $ResourceGroupName `
+        $envList = az devcenter dev environment-definition list `
+            --project-name $ProjectName `
             --dev-center-name $DevCenterName `
-            --catalog-name $CatalogName `
-            --query "[].{name:name, templatePath:templatePath}" `
+            --query "[?catalogName=='$CatalogName'].{name:name, templatePath:templatePath}" `
             2>$null | ConvertFrom-Json
 
         foreach ($env in $envList) {
@@ -291,11 +291,15 @@ function Validate-BicepTemplate {
     Write-Header "Validating Bicep Template Files"
 
     Write-Check "Bicep template exists in catalog..."
-    if (Test-Path "../catalog/webapp-demo/main.bicep") {
+    $repoRoot = Join-Path $PSScriptRoot ".."
+    $bicepPath = Join-Path $repoRoot "catalog/webapp-demo/main.bicep"
+    $paramsPath = Join-Path $repoRoot "catalog/webapp-demo/parameters.json"
+
+    if (Test-Path $bicepPath) {
         Write-Pass
         
         Write-Check "Parameters file exists..."
-        if (Test-Path "../catalog/webapp-demo/parameters.json") {
+        if (Test-Path $paramsPath) {
             Write-Pass
         } else {
             Write-Fail "parameters.json not found"

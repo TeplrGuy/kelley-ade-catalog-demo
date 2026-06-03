@@ -184,7 +184,7 @@ validate_resource_group() {
     print_header "Validating Resource Group"
 
     print_check "Resource group exists: $RESOURCE_GROUP..."
-    local rg_exists=$(az group exists --name "$RESOURCE_GROUP" --query "boolean(@)" 2>/dev/null || echo "false")
+    local rg_exists=$(az group exists --name "$RESOURCE_GROUP" 2>/dev/null || echo "false")
     
     if [[ "$rg_exists" == "true" ]]; then
         print_pass
@@ -264,11 +264,10 @@ validate_catalog_environments() {
     print_header "Validating Catalog Environments"
 
     print_check "Catalog contains environment definitions..."
-    local environments=$(az devcenter admin catalog environment-definition list \
-        --resource-group "$RESOURCE_GROUP" \
-        --dev-center-name "$DEV_CENTER" \
-        --catalog-name "$CATALOG_NAME" \
-        --query "length(@)" \
+    local environments=$(az devcenter dev environment-definition list \
+            --project-name "$PROJECT" \
+            --dev-center-name "$DEV_CENTER" \
+            --query "length(@)" \
         2>/dev/null || echo "0")
     
     if [[ $environments -gt 0 ]]; then
@@ -277,11 +276,10 @@ validate_catalog_environments() {
         
         echo ""
         echo -e "${CYAN}Available environment definitions:${NC}"
-        az devcenter admin catalog environment-definition list \
-            --resource-group "$RESOURCE_GROUP" \
+        az devcenter dev environment-definition list \
+            --project-name "$PROJECT" \
             --dev-center-name "$DEV_CENTER" \
-            --catalog-name "$CATALOG_NAME" \
-            --query "[].{name:name, templatePath:templatePath}" \
+                --query "[?catalogName=='$CATALOG_NAME'].{name:name, templatePath:templatePath}" \
             2>/dev/null | jq -r '.[] | "  - \(.name) (template: \(.templatePath))"'
     else
         print_fail "No environment definitions found in catalog"

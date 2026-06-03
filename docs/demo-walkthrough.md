@@ -21,6 +21,8 @@ A complete guide to presenting the platform engineering and self-service environ
 8. [Copilot Integration Talking Points](#copilot-integration-talking-points)
 9. [Suggested Pilot Framing](#suggested-pilot-framing)
 10. [Next Steps & Close](#next-steps--close)
+11. [Useful Demo Links](#useful-demo-links)
+12. [Developer Workflow With Skills And Hooks](#developer-workflow-with-skills-and-hooks)
 
 ---
 
@@ -761,7 +763,6 @@ Before they leave the room, make sure they understand:
 > Subject: Platform Engineering Catalog Pattern – Next Steps
 >
 > Hi [Name],
->
 > Thank you for making time today. I really enjoyed walking through the platform engineering pattern with you.
 >
 > To recap what we discussed:
@@ -780,9 +781,47 @@ Before they leave the room, make sure they understand:
 > - Which app team would be the best pilot customer?
 > - What does success look like in terms of metrics?
 >
-> Looking forward to building this with you.
 >
 > [Your name]
+
+---
+
+## Useful Demo Links
+
+Use these links live during the walkthrough:
+
+* GitHub catalog repository: <https://github.com/TeplrGuy/contoso-ade-catalog-demo>
+* Azure Repos mirror: <https://dev.azure.com/gappiahdemo-msft/P/_git/contoso-ade-catalog-demo>
+* Dev Center endpoint: <https://16b3c013-d300-468d-ac64-7eda0820b6d3-dc-contoso-platform.eastus.devcenter.azure.com>
+* Project endpoint: <https://16b3c013-d300-468d-ac64-7eda0820b6d3-dc-contoso-platform.eastus.devcenter.azure.com/projects/ContosoPlatform>
+* Bicep environment definition endpoint: <https://16b3c013-d300-468d-ac64-7eda0820b6d3-dc-contoso-platform.eastus.devcenter.azure.com/projects/ContosoPlatform/catalogs/github-catalog/environmentDefinitions/webapp-demo>
+* Terraform environment definition endpoint (after catalog sync): <https://16b3c013-d300-468d-ac64-7eda0820b6d3-dc-contoso-platform.eastus.devcenter.azure.com/projects/ContosoPlatform/catalogs/github-catalog/environmentDefinitions/webapp-terraform-demo>
+
+Catalog files to show in repo:
+
+* Bicep template definition: `catalog/webapp-demo/environment.yaml`
+* Bicep template IaC: `catalog/webapp-demo/main.bicep`
+* Terraform template definition: `catalog/webapp-terraform-demo/environment.yaml`
+* Terraform template IaC: `catalog/webapp-terraform-demo/main.tf`
+
+---
+
+## Developer Workflow With Skills And Hooks
+
+Use this flow to explain how developers can automate environment provisioning while writing code:
+
+1. Developer starts with intent in Copilot Chat, for example "I need a backend API environment with basic SKU".
+2. Discovery skill in `docs/copilot-catalog-lookup.skill.md` queries live catalogs and environment definitions.
+3. Skill returns the best matching template and minimal required parameters.
+4. Agent hook or CI workflow runs `az devcenter dev environment create` with approved parameters.
+5. Developer gets the environment URL and continues app deployment.
+
+Recommended hook pattern:
+
+* Trigger on feature branch creation or first deployment intent.
+* Use discovery skill result as the source of truth for template selection.
+* Restrict parameters to approved values from the environment definition.
+* Post created environment details back to PR comments for team visibility.
 
 ---
 
