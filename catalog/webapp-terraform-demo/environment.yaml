@@ -2,7 +2,7 @@ name: webapp-terraform-demo
 version: 1.0.0
 summary: Deploy a governed Linux App Service web environment with Terraform.
 description: App Service plan, Linux web app, and optional storage using Terraform.
-runner: mcr.microsoft.com/devcenter/runners/terraform:latest
+runner: mcr.microsoft.com/deployment-environments/runners/terraform:latest
 templatePath: main.tf
 
 parameters:
