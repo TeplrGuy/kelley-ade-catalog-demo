@@ -264,7 +264,7 @@ This skill saves tokens by:
 
 ## Integration with ADE Catalog Demo
 
-This skill is designed for the Kelley Services ADE Catalog demonstration. Use it to show:
+This skill is designed for the Contoso ADE Catalog demonstration. Use it to show:
 
 1. **Developer self-service**: "Our developers don't call the platform team; they ask Copilot"
 2. **Template discoverability**: "All available patterns in one place"

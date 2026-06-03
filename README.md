@@ -212,7 +212,7 @@ Common issues:
 3. **Week 3:** Gather feedback and iterate on environment definition
 4. **Week 4:** Plan expansion to additional environment patterns
 
-### Suggested Conversation with Kelley Services
+### Suggested Conversation with Contoso
 
 - "How many infrastructure patterns does your platform team maintain today?"
 - "What are the biggest pain points in current infrastructure provisioning?"

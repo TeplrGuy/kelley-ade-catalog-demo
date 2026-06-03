@@ -1,5 +1,5 @@
 
-I need you to generate a complete customer-demo-ready solution in this repo for an enterprise discussion with Kelley Services.
+I need you to generate a complete customer-demo-ready solution in this repo for an enterprise discussion with Contoso.
 
 GOAL
 Create:

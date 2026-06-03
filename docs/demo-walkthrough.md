@@ -800,4 +800,4 @@ Before they leave the room, make sure they understand:
 
 **Last Updated:** June 3, 2026  
 **Version:** 1.0  
-**Designed for:** Kelley Services customer presentation
+**Designed for:** Contoso customer presentation
