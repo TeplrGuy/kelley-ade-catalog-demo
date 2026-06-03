@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentName": {
+      "value": "webapp-demo",
+      "metadata": {
+        "description": "Name of the environment (used in resource naming)"
+      }
+    },
+    "appServicePlanSku": {
+      "value": "Basic",
+      "metadata": {
+        "description": "App Service Plan pricing tier (Basic, Standard, Premium)"
+      }
+    },
+    "webAppRuntime": {
+      "value": "NODE|18-lts",
+      "metadata": {
+        "description": "Web App runtime stack (NODE|18-lts, DOTNETCORE|7.0, PYTHON|3.11)"
+      }
+    },
+    "enableStorage": {
+      "value": true,
+      "metadata": {
+        "description": "Enable Azure Storage Account for file storage"
+      }
+    },
+    "environment": {
+      "value": "dev",
+      "metadata": {
+        "description": "Environment type: dev, staging, or prod"
+      }
+    },
+    "costCenter": {
+      "value": "engineering",
+      "metadata": {
+        "description": "Cost center code for billing purposes"
+      }
+    },
+    "department": {
+      "value": "platform-engineering",
+      "metadata": {
+        "description": "Department owning this environment"
+      }
+    },
+    "location": {
+      "value": "eastus",
+      "metadata": {
+        "description": "Azure region for resources"
+      }
+    }
+  }
+}

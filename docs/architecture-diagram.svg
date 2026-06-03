@@ -1,0 +1,218 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define styles -->
+  <defs>
+    <style>
+      .title { font-size: 24px; font-weight: bold; fill: #333; }
+      .section-title { font-size: 14px; font-weight: bold; fill: #0078d4; }
+      .box { fill: #f5f7fa; stroke: #0078d4; stroke-width: 2; }
+      .box-title { font-size: 13px; font-weight: bold; fill: #333; }
+      .box-text { font-size: 11px; fill: #666; }
+      .arrow { stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .arrow-label { font-size: 11px; fill: #333; font-style: italic; }
+      .highlight { fill: #e8f0fe; stroke: #0078d4; stroke-width: 2; }
+      .person { fill: #667eea; }
+      .person-text { font-size: 11px; fill: white; font-weight: bold; }
+      .line { stroke: #ccc; stroke-width: 1; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="30" text-anchor="middle" class="title">Azure Deployment Environments - Catalog Pattern Architecture</text>
+
+  <!-- Platform Team Section -->
+  <g id="section1">
+    <rect x="20" y="80" width="200" height="80" class="highlight" rx="5"/>
+    <text x="30" y="100" class="section-title">Platform Team</text>
+    <circle cx="80" cy="130" r="20" class="person"/>
+    <text x="80" y="135" text-anchor="middle" class="person-text">👤</text>
+    <text x="130" y="135" class="box-text">Designs & maintains</text>
+    <text x="130" y="148" class="box-text">infrastructure patterns</text>
+  </g>
+
+  <!-- Publishes arrow -->
+  <path d="M 220 120 L 300 120" class="arrow"/>
+  <text x="260" y="110" class="arrow-label">Publishes</text>
+
+  <!-- Catalog Repository Section -->
+  <g id="section2">
+    <rect x="300" y="80" width="200" height="230" class="box" rx="5"/>
+    <text x="310" y="100" class="section-title">📚 Catalog Repository</text>
+    <text x="310" y="125" class="box-text">(GitHub or Azure Repos)</text>
+    
+    <!-- Nested boxes for catalog content -->
+    <rect x="310" y="140" width="180" height="30" fill="white" stroke="#ccc" stroke-width="1" rx="3"/>
+    <text x="320" y="160" class="box-text">environment.yaml</text>
+    
+    <rect x="310" y="180" width="180" height="30" fill="white" stroke="#ccc" stroke-width="1" rx="3"/>
+    <text x="320" y="200" class="box-text">main.bicep</text>
+    
+    <rect x="310" y="220" width="180" height="30" fill="white" stroke="#ccc" stroke-width="1" rx="3"/>
+    <text x="320" y="240" class="box-text">parameters.json</text>
+    
+    <rect x="310" y="260" width="180" height="30" fill="white" stroke="#ccc" stroke-width="1" rx="3"/>
+    <text x="320" y="280" class="box-text">README.md</text>
+  </g>
+
+  <!-- Syncs arrow -->
+  <path d="M 500 180 L 580 180" class="arrow"/>
+  <text x="540" y="170" class="arrow-label">Syncs</text>
+
+  <!-- Azure Services Section -->
+  <g id="section3">
+    <!-- Dev Center -->
+    <rect x="580" y="80" width="200" height="100" class="box" rx="5"/>
+    <text x="590" y="100" class="section-title">⚙️ Azure Dev Center</text>
+    <text x="590" y="125" class="box-text">• Catalog management</text>
+    <text x="590" y="140" class="box-text">• Self-service portal</text>
+    <text x="590" y="155" class="box-text">• Environment provisioning</text>
+  </g>
+
+  <!-- Arrow down from Dev Center -->
+  <path d="M 680 180 L 680 240" class="arrow"/>
+  <text x="610" y="215" class="arrow-label">Orchestrates</text>
+
+  <!-- Bicep Deployment -->
+  <g id="section4">
+    <rect x="580" y="240" width="200" height="80" class="box" rx="5"/>
+    <text x="590" y="260" class="section-title">🚀 Bicep Deployment</text>
+    <text x="590" y="280" class="box-text">• Creates resources</text>
+    <text x="590" y="295" class="box-text">• Applies governance</text>
+    <text x="590" y="310" class="box-text">• Sets RBAC & tags</text>
+  </g>
+
+  <!-- Arrow down to Azure Resources -->
+  <path d="M 680 320 L 680 380" class="arrow"/>
+
+  <!-- Deployed Resources -->
+  <g id="section5">
+    <rect x="580" y="380" width="200" height="120" class="highlight" rx="5"/>
+    <text x="590" y="400" class="section-title">🔧 Deployed Resources</text>
+    <text x="590" y="420" class="box-text">• App Service Plan</text>
+    <text x="590" y="435" class="box-text">• Web App</text>
+    <text x="590" y="450" class="box-text">• Managed Identity</text>
+    <text x="590" y="465" class="box-text">• Application Insights</text>
+    <text x="590" y="480" class="box-text">• Storage (optional)</text>
+  </g>
+
+  <!-- App Teams Section -->
+  <g id="section6">
+    <rect x="880" y="80" width="200" height="150" class="highlight" rx="5"/>
+    <text x="890" y="100" class="section-title">👥 Application Teams</text>
+    <text x="890" y="125" class="box-text">1. Visit Developer Portal</text>
+    <text x="890" y="140" class="box-text">2. Select environment type</text>
+    <text x="890" y="155" class="box-text">3. Fill in parameters</text>
+    <text x="890" y="170" class="box-text">4. Click "Create"</text>
+    <text x="890" y="185" class="box-text">5. Get ready-to-use</text>
+    <text x="890" y="198" class="box-text">   environment in 2-5 min</text>
+  </g>
+
+  <!-- Self-Service arrow -->
+  <path d="M 780 150 L 880 150" class="arrow"/>
+  <text x="830" y="140" class="arrow-label">Self-Service</text>
+
+  <!-- Governance Box -->
+  <g id="governance">
+    <rect x="880" y="280" width="200" height="220" class="box" rx="5"/>
+    <text x="890" y="300" class="section-title">🔐 Built-in Governance</text>
+    
+    <text x="890" y="325" class="box-title">✓ Automatic</text>
+    <text x="900" y="340" class="box-text">• RBAC role assignments</text>
+    <text x="900" y="353" class="box-text">• Compliance tagging</text>
+    <text x="900" y="366" class="box-text">• Resource locks</text>
+    <text x="900" y="379" class="box-text">• Diagnostic logging</text>
+    <text x="900" y="392" class="box-text">• Managed identity</text>
+    
+    <text x="890" y="420" class="box-title">✓ Centralized</text>
+    <text x="900" y="435" class="box-text">• Platform team owns</text>
+    <text x="900" y="448" class="box-text">  template, not app teams</text>
+    <text x="900" y="461" class="box-text">• Updates apply to</text>
+    <text x="900" y="474" class="box-text">  all future deployments</text>
+  </g>
+
+  <!-- Deployment feedback arrow -->
+  <path d="M 880 330 L 780 420" class="arrow" stroke-dasharray="5,5"/>
+  <text x="820" y="370" class="arrow-label">Feedback</text>
+
+  <!-- Benefits Section at bottom -->
+  <g id="benefits">
+    <text x="50" y="580" class="section-title">Key Benefits:</text>
+    
+    <rect x="50" y="600" width="140" height="60" class="box" rx="3"/>
+    <text x="60" y="620" class="box-title">⚡ Speed</text>
+    <text x="60" y="635" class="box-text">Environments in</text>
+    <text x="60" y="648" class="box-text">minutes, not days</text>
+    
+    <rect x="220" y="600" width="140" height="60" class="box" rx="3"/>
+    <text x="230" y="620" class="box-title">📐 Consistency</text>
+    <text x="230" y="635" class="box-text">Same template,</text>
+    <text x="230" y="648" class="box-text">same output</text>
+    
+    <rect x="390" y="600" width="140" height="60" class="box" rx="3"/>
+    <text x="400" y="620" class="box-title">🛡️ Governance</text>
+    <text x="400" y="635" class="box-text">Built-in compliance,</text>
+    <text x="400" y="648" class="box-text">no manual steps</text>
+    
+    <rect x="560" y="600" width="140" height="60" class="box" rx="3"/>
+    <text x="570" y="620" class="box-title">📈 Scalability</text>
+    <text x="570" y="635" class="box-text">One pattern scales</text>
+    <text x="570" y="648" class="box-text">across many teams</text>
+    
+    <rect x="730" y="600" width="140" height="60" class="box" rx="3"/>
+    <text x="740" y="620" class="box-title">🧠 Simplicity</text>
+    <text x="740" y="635" class="box-text">App teams don't need</text>
+    <text x="740" y="648" class="box-text">deep IaC expertise</text>
+  </g>
+
+  <!-- Process Flow at bottom -->
+  <g id="process">
+    <text x="50" y="730" class="section-title">Deployment Process:</text>
+    
+    <!-- Step 1 -->
+    <circle cx="100" cy="760" r="15" fill="#0078d4"/>
+    <text x="100" y="767" text-anchor="middle" class="person-text">1</text>
+    <text x="100" y="785" text-anchor="middle" class="box-text">Platform team</text>
+    <text x="100" y="798" text-anchor="middle" class="box-text">publishes</text>
+    
+    <!-- Arrow -->
+    <path d="M 135 760 L 175 760" class="arrow"/>
+    
+    <!-- Step 2 -->
+    <circle cx="220" cy="760" r="15" fill="#0078d4"/>
+    <text x="220" y="767" text-anchor="middle" class="person-text">2</text>
+    <text x="220" y="785" text-anchor="middle" class="box-text">Dev Center</text>
+    <text x="220" y="798" text-anchor="middle" class="box-text">syncs catalog</text>
+    
+    <!-- Arrow -->
+    <path d="M 255 760 L 295 760" class="arrow"/>
+    
+    <!-- Step 3 -->
+    <circle cx="340" cy="760" r="15" fill="#0078d4"/>
+    <text x="340" y="767" text-anchor="middle" class="person-text">3</text>
+    <text x="340" y="785" text-anchor="middle" class="box-text">App team</text>
+    <text x="340" y="798" text-anchor="middle" class="box-text">self-services</text>
+    
+    <!-- Arrow -->
+    <path d="M 375 760 L 415 760" class="arrow"/>
+    
+    <!-- Step 4 -->
+    <circle cx="460" cy="760" r="15" fill="#0078d4"/>
+    <text x="460" y="767" text-anchor="middle" class="person-text">4</text>
+    <text x="460" y="785" text-anchor="middle" class="box-text">Bicep executes,</text>
+    <text x="460" y="798" text-anchor="middle" class="box-text">governs</text>
+    
+    <!-- Arrow -->
+    <path d="M 495 760 L 535 760" class="arrow"/>
+    
+    <!-- Step 5 -->
+    <circle cx="580" cy="760" r="15" fill="#0078d4"/>
+    <text x="580" y="767" text-anchor="middle" class="person-text">5</text>
+    <text x="580" y="785" text-anchor="middle" class="box-text">Ready-to-use</text>
+    <text x="580" y="798" text-anchor="middle" class="box-text">environment</text>
+  </g>
+
+  <!-- Version info -->
+  <text x="1170" y="795" text-anchor="end" class="box-text" style="font-size: 9px;">v1.0 - ADE Catalog Pattern</text>
+</svg>

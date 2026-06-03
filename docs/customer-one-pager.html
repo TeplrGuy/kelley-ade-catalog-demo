@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Engineering & Self-Service Catalogs on Azure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-hero {
+            background: linear-gradient(135deg, #0078d4 0%, #1084d9 50%, #005a9e 100%);
+        }
+        .gradient-section {
+            background: linear-gradient(to bottom, #f5f5f5, #ffffff);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        .accent-blue {
+            color: #0078d4;
+        }
+        .accent-teal {
+            color: #107c10;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header/Hero Section -->
+    <section class="gradient-hero text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center">
+                <h1 class="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
+                    Platform Engineering & Self-Service Environment Catalog on Azure
+                </h1>
+                <p class="text-xl sm:text-2xl font-light mb-6 text-blue-100">
+                    Empower app teams. Standardize infrastructure. Reduce time-to-value.
+                </p>
+                <p class="text-lg text-blue-50 max-w-3xl mx-auto">
+                    Enable self-service infrastructure provisioning with platform-approved, curated environment definitions—maintaining governance while dramatically improving developer experience.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Executive Summary -->
+    <section class="bg-white py-12 px-4 sm:px-6 lg:px-8 border-b border-gray-200">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold accent-blue mb-8 text-center">The Opportunity</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="text-5xl accent-blue font-bold mb-2">3-5x</div>
+                    <p class="text-gray-600"><strong>Faster</strong> environment provisioning vs. manual processes</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl accent-blue font-bold mb-2">100%</div>
+                    <p class="text-gray-600"><strong>Standardized</strong> infrastructure across all teams</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl accent-blue font-bold mb-2">0</div>
+                    <p class="text-gray-600"><strong>Infrastructure drift</strong> via template-driven compliance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Challenge -->
+    <section class="gradient-section py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold accent-blue mb-8">Today's Challenge</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-lg card-shadow">
+                    <div class="flex items-start mb-4">
+                        <span class="text-2xl accent-blue mr-4">❌</span>
+                        <div>
+                            <h3 class="font-bold text-lg mb-2">Inconsistent Infrastructure</h3>
+                            <p class="text-gray-600">Each app team provisions environments differently, creating maintenance burden and security gaps.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg card-shadow">
+                    <div class="flex items-start mb-4">
+                        <span class="text-2xl accent-blue mr-4">❌</span>
+                        <div>
+                            <h3 class="font-bold text-lg mb-2">Terraform Complexity</h3>
+                            <p class="text-gray-600">App engineers struggle with IaC, creating a bottleneck with platform team and slowing delivery.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg card-shadow">
+                    <div class="flex items-start mb-4">
+                        <span class="text-2xl accent-blue mr-4">❌</span>
+                        <div>
+                            <h3 class="font-bold text-lg mb-2">Slow Onboarding</h3>
+                            <p class="text-gray-600">New app teams or projects wait days/weeks to get their first environment provisioned.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg card-shadow">
+                    <div class="flex items-start mb-4">
+                        <span class="text-2xl accent-blue mr-4">❌</span>
+                        <div>
+                            <h3 class="font-bold text-lg mb-2">Governance at Scale</h3>
+                            <p class="text-gray-600">Maintaining RBAC, approvals, and compliance standards across many teams is manual and error-prone.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Solution -->
+    <section class="bg-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold accent-blue mb-8">The Platform Engineering Pattern</h2>
+            <p class="text-lg text-gray-700 mb-8 text-center max-w-3xl mx-auto">
+                <strong>Azure Deployment Environments (ADE)</strong> enables platform teams to publish curated, standardized environment definitions into a catalog—letting app teams self-service approved infrastructure with full governance intact.
+            </p>
+
+            <!-- Flow Diagram -->
+            <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-8 rounded-lg mb-8 border border-blue-200">
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 items-center">
+                    <div class="text-center">
+                        <div class="bg-blue-600 text-white rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-3">
+                            <span class="text-lg">👨‍💼</span>
+                        </div>
+                        <p class="font-semibold text-sm">Platform<br/>Team</p>
+                    </div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="text-2xl text-blue-600 mb-2">→</div>
+                        <p class="text-xs text-gray-600">Publishes</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-blue-600 text-white rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-3">
+                            <span class="text-lg">📚</span>
+                        </div>
+                        <p class="font-semibold text-sm">Catalog<br/>(GitHub/<br/>Azure Repos)</p>
+                    </div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="text-2xl text-blue-600 mb-2">→</div>
+                        <p class="text-xs text-gray-600">Syncs</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-blue-600 text-white rounded-full h-16 w-16 flex items-center justify-center mx-auto mb-3">
+                            <span class="text-lg">⚙️</span>
+                        </div>
+                        <p class="font-semibold text-sm">Azure<br/>Deployment<br/>Environments</p>
+                    </div>
+                </div>
+                <div class="text-center mt-6 pt-6 border-t border-blue-300">
+                    <div class="flex justify-center items-center">
+                        <div class="text-2xl text-blue-600">↓</div>
+                    </div>
+                    <p class="text-gray-700 mt-2"><strong>App Teams Self-Service</strong> approved, standardized environments</p>
+                </div>
+            </div>
+
+            <!-- Three Pillars -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-600">
+                    <h3 class="font-bold text-lg accent-blue mb-3">🎯 Governance</h3>
+                    <p class="text-gray-700">Platform team maintains control. All environments inherit approved standards, RBAC policies, and audit trails automatically.</p>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-600">
+                    <h3 class="font-bold text-lg accent-teal mb-3">⚡ Velocity</h3>
+                    <p class="text-gray-700">App teams get production-ready environments in minutes, not days. Self-service reduces dependency on platform team.</p>
+                </div>
+                <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-600">
+                    <h3 class="font-bold text-lg mb-3" style="color: #6f42c1;">💡 Scalability</h3>
+                    <p class="text-gray-700">One curated template pattern scales across dozens of app teams. New patterns added without disrupting existing ones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reference Architecture -->
+    <section class="gradient-section py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold accent-blue mb-8">Reference Architecture</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Left Column: Components -->
+                <div>
+                    <h3 class="font-bold text-lg accent-blue mb-4">Key Components</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded border-l-4 border-blue-500">
+                            <p class="font-semibold text-gray-900">Catalog Repository</p>
+                            <p class="text-sm text-gray-600 mt-1">GitHub or Azure Repos hosting environment definitions, templates, and documentation.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded border-l-4 border-blue-500">
+                            <p class="font-semibold text-gray-900">Environment Definitions</p>
+                            <p class="text-sm text-gray-600 mt-1">YAML files describing infrastructure patterns (web app, API, database, etc.).</p>
+                        </div>
+                        <div class="bg-white p-4 rounded border-l-4 border-blue-500">
+                            <p class="font-semibold text-gray-900">IaC Templates (Bicep)</p>
+                            <p class="text-sm text-gray-600 mt-1">Reusable Azure infrastructure templates with built-in governance controls.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded border-l-4 border-blue-500">
+                            <p class="font-semibold text-gray-900">Azure Dev Center</p>
+                            <p class="text-sm text-gray-600 mt-1">Syncs catalog and provides self-service portal for app teams.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded border-l-4 border-blue-500">
+                            <p class="font-semibold text-gray-900">Managed Identity & RBAC</p>
+                            <p class="text-sm text-gray-600 mt-1">Secure, least-privilege access for deployments and compliance auditing.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Benefits -->
+                <div>
+                    <h3 class="font-bold text-lg accent-blue mb-4">Why This Architecture Works</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded border-l-4 border-green-500">
+                            <p class="font-semibold text-gray-900">Single Source of Truth</p>
+                            <p class="text-sm text-gray-600 mt-1">All infrastructure standards live in one catalog repository with version control.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded border-l-4 border-green-500">
+                            <p class="font-semibold text-gray-900">Template Reuse</p>
+                            <p class="text-sm text-gray-600 mt-1">One approved pattern deployed across unlimited app teams and projects.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded border-l-4 border-green-500">
+                            <p class="font-semibold text-gray-900">Automated Compliance</p>
+                            <p class="text-sm text-gray-600 mt-1">Governance, tags, RBAC, and audit logging built into every deployment.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded border-l-4 border-green-500">
+                            <p class="font-semibold text-gray-900">Low Infrastructure Burden</p>
+                            <p class="text-sm text-gray-600 mt-1">App teams don't write Terraform. Platform team owns and evolves templates.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded border-l-4 border-green-500">
+                            <p class="font-semibold text-gray-900">GitHub + Azure Interop</p>
+                            <p class="text-sm text-gray-600 mt-1">Catalog works with GitHub or Azure Repos, aligning with existing developer workflow.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Copilot Section -->
+    <section class="bg-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold accent-blue mb-8">GitHub Copilot for Platform Engineering</h2>
+            <p class="text-lg text-gray-700 mb-8">
+                Accelerate platform team productivity with AI-powered assistance:
+            </p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p class="font-bold accent-blue mb-3">📝 Documentation & Communication</p>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• Generate clear README files for catalog environments</li>
+                        <li>• Explain infrastructure patterns to app teams</li>
+                        <li>• Create onboarding guides and runbooks</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p class="font-bold accent-blue mb-3">🛠️ Template Development</p>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• Scaffold new Bicep templates quickly</li>
+                        <li>• Generate YAML environment definitions</li>
+                        <li>• Review and improve IaC code quality</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p class="font-bold accent-blue mb-3">🔄 CI/CD & Automation</p>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• Generate pipeline snippets and validation scripts</li>
+                        <li>• Create deployment step-by-step playbooks</li>
+                        <li>• Build test infrastructure-as-code</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p class="font-bold accent-blue mb-3">🎓 Knowledge Sharing</p>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• Explain governance and compliance patterns</li>
+                        <li>• Train new platform engineers</li>
+                        <li>• Create decision documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Suggested Pilot -->
+    <section class="gradient-section py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold accent-blue mb-8">Recommended Pilot Approach</h2>
+            <div class="space-y-4">
+                <div class="flex gap-4">
+                    <div class="text-2xl accent-blue font-bold">1</div>
+                    <div class="bg-white p-4 rounded card-shadow flex-1">
+                        <p class="font-semibold text-gray-900 mb-1">Design One Environment Pattern</p>
+                        <p class="text-sm text-gray-600">Start with a simple, high-demand pattern (e.g., web app + storage). Keep it focused.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-2xl accent-blue font-bold">2</div>
+                    <div class="bg-white p-4 rounded card-shadow flex-1">
+                        <p class="font-semibold text-gray-900 mb-1">Publish to Catalog Repository</p>
+                        <p class="text-sm text-gray-600">Add environment definition, Bicep template, and documentation to GitHub or Azure Repos.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-2xl accent-blue font-bold">3</div>
+                    <div class="bg-white p-4 rounded card-shadow flex-1">
+                        <p class="font-semibold text-gray-900 mb-1">Connect to Azure Dev Center</p>
+                        <p class="text-sm text-gray-600">Sync catalog into ADE and verify app teams see the environment in the portal.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-2xl accent-blue font-bold">4</div>
+                    <div class="bg-white p-4 rounded card-shadow flex-1">
+                        <p class="font-semibold text-gray-900 mb-1">Onboard Pilot App Team</p>
+                        <p class="text-sm text-gray-600">Have one trusted app team self-service the environment. Collect feedback on DX.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-2xl accent-blue font-bold">5</div>
+                    <div class="bg-white p-4 rounded card-shadow flex-1">
+                        <p class="font-semibold text-gray-900 mb-1">Iterate & Validate Governance</p>
+                        <p class="text-sm text-gray-600">Verify RBAC, approvals, and compliance. Refine template based on learnings.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-2xl accent-blue font-bold">6</div>
+                    <div class="bg-white p-4 rounded card-shadow flex-1">
+                        <p class="font-semibold text-gray-900 mb-1">Scale to More Teams & Patterns</p>
+                        <p class="text-sm text-gray-600">Expand to additional app teams and new environment patterns based on demand.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
+                <p class="text-sm text-gray-700">
+                    <strong>Timeline:</strong> A well-designed pilot can go from concept to production validation in 4–6 weeks with part-time platform team effort.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Outcomes -->
+    <section class="bg-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold accent-blue mb-8">Expected Outcomes</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="flex gap-4">
+                    <span class="text-3xl">✅</span>
+                    <div>
+                        <p class="font-semibold text-gray-900 mb-1">Faster Environments</p>
+                        <p class="text-gray-600 text-sm">App teams provision environments in minutes, not days or weeks.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <span class="text-3xl">✅</span>
+                    <div>
+                        <p class="font-semibold text-gray-900 mb-1">Zero Drift</p>
+                        <p class="text-gray-600 text-sm">All infrastructure follows the same template. No manual drift or inconsistencies.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <span class="text-3xl">✅</span>
+                    <div>
+                        <p class="font-semibold text-gray-900 mb-1">Reduced Cognitive Load</p>
+                        <p class="text-gray-600 text-sm">App engineers don't need deep Terraform expertise. Focus on features, not infrastructure.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <span class="text-3xl">✅</span>
+                    <div>
+                        <p class="font-semibold text-gray-900 mb-1">Built-In Governance</p>
+                        <p class="text-gray-600 text-sm">All environments inherit platform standards, RBAC, and compliance automatically.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <span class="text-3xl">✅</span>
+                    <div>
+                        <p class="font-semibold text-gray-900 mb-1">Scalable Platform</p>
+                        <p class="text-gray-600 text-sm">Pattern reuse scales across dozens of teams without platform team bottleneck.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <span class="text-3xl">✅</span>
+                    <div>
+                        <p class="font-semibold text-gray-900 mb-1">Team Productivity</p>
+                        <p class="text-gray-600 text-sm">GitHub Copilot accelerates template development and documentation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-hero text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-6">Ready to Transform Your Platform?</h2>
+            <p class="text-lg sm:text-xl text-blue-100 mb-8">
+                Start with one curated environment pattern. Prove the value. Scale to your entire organization.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition">
+                    Schedule a Pilot Kickoff
+                </button>
+                <button class="border-2 border-white text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition">
+                    View Demo Repository
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 text-center py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <p class="mb-2">
+                <strong class="text-white">Azure Deployment Environments Catalog Demo</strong>
+            </p>
+            <p class="text-sm mb-4">
+                Enterprise-ready platform engineering solution for self-service infrastructure provisioning
+            </p>
+            <p class="text-xs text-gray-500">
+                © 2026 Microsoft. Built for Kelley Services.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
