@@ -29,8 +29,12 @@ param appServicePlanSku string = 'Basic'
 @description('Web App runtime stack')
 param webAppRuntime string = 'NODE|18-lts'
 
-@description('Enable Azure Storage Account')
-param enableStorage bool = true
+@description('Enable Azure Storage Account (true/false)')
+@allowed([
+  'true'
+  'false'
+])
+param enableStorage string = 'true'
 
 @description('Environment type: dev, staging, or prod')
 @allowed([
@@ -59,6 +63,7 @@ param location string = resourceGroup().location
 var environmentNameSafe = replace(toLower(environmentName), ' ', '-')
 var timestamp = deploymentDate
 var uniqueSuffix = substring(uniqueString(resourceGroup().id), 0, 5)
+var enableStorageBool = toLower(enableStorage) == 'true'
 
 // Resource naming with safe characters and uniqueness
 var appServicePlanName = 'asp-${environmentNameSafe}-${uniqueSuffix}'
@@ -296,7 +301,7 @@ resource webAppDiagnostics 'Microsoft.Insights/diagnosticSettings@2021-05-01-pre
 // Resources: Azure Storage Account (Optional)
 // ============================================================================
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = if (enableStorage) {
+resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = if (enableStorageBool) {
   name: storageAccountName
   location: location
   tags: commonTags
@@ -317,7 +322,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = if (ena
 // Resources: Storage Account Diagnostic Settings (Optional)
 // ============================================================================
 
-resource storageAccountDiagnostics 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = if (enableStorage) {
+resource storageAccountDiagnostics 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = if (enableStorageBool) {
   name: 'send-logs-to-${logAnalyticsWorkspace.name}'
   scope: storageAccount
   properties: {
@@ -340,7 +345,7 @@ resource storageAccountDiagnostics 'Microsoft.Insights/diagnosticSettings@2021-0
 // ============================================================================
 
 // Assign the managed identity a reader role on the storage account
-resource storageBlobReaderRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (enableStorage) {
+resource storageBlobReaderRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (enableStorageBool) {
   scope: storageAccount
   name: guid(storageAccount.id, managedIdentity.id, 'Storage Blob Data Reader')
   properties: {
@@ -406,9 +411,9 @@ output appInsightsInstrumentationKey string = appInsights.properties.Instrumenta
 output logAnalyticsWorkspaceId string = logAnalyticsWorkspace.id
 output logAnalyticsWorkspaceName string = logAnalyticsWorkspace.name
 
-output storageAccountId string = enableStorage ? storageAccount.id : ''
-output storageAccountName string = enableStorage ? storageAccount.name : ''
-output storageAccountUrl string = enableStorage ? 'https://${storageAccount.name}.blob.${environment().suffixes.storage}' : ''
+output storageAccountId string = enableStorageBool ? storageAccount.id : ''
+output storageAccountName string = enableStorageBool ? storageAccount.name : ''
+output storageAccountUrl string = enableStorageBool ? 'https://${storageAccount.name}.blob.${environment().suffixes.storage}' : ''
 
 output deploymentDate string = timestamp
 output environment string = envType
