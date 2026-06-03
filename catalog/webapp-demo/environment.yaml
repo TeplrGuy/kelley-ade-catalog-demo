@@ -1,156 +1,68 @@
-name: Web App Demo Environment
-displayName: Web App with Storage
-description: A foundational web application environment with App Service Plan, Web App, and optional storage account. Suitable for dev, staging, and production workloads.
-summary: |-
-  Deploys a scalable web application hosting environment on Azure App Service with integrated storage capabilities.
-owner: Platform Engineering Team
-repository: https://github.com/TeplrGuy/ade-catalog-demo
+name: webapp-demo
+version: 1.0.0
+summary: Deploy a governed App Service web application environment.
+description: App Service plan, web app, monitoring, managed identity, and optional storage.
+runner: ARM
+templatePath: main.bicep
 
-# For Azure Deployment Environments catalog consumption
-# This file describes the environment to Azure Dev Center
 parameters:
   - id: environmentName
     name: Environment Name
-    description: Name for this environment deployment
+    description: Name for this environment deployment.
     type: string
     required: true
-    default: webapp
-  
+    default: webapp-demo
+
   - id: appServicePlanSku
     name: App Service Plan SKU
-    description: Azure App Service Plan pricing tier (Basic, Standard, Premium)
+    description: Azure App Service Plan pricing tier.
     type: string
     required: true
     default: Basic
-    allowedValues:
+    allowed:
       - Basic
       - Standard
       - Premium
-  
+
   - id: webAppRuntime
     name: Web App Runtime
-    description: Runtime stack for the web app
+    description: Runtime stack for the web app.
     type: string
     required: true
-    default: "NODE|18-lts"
-    allowedValues:
-      - "NODE|18-lts"
-      - "DOTNETCORE|7.0"
-      - "PYTHON|3.11"
-  
+    default: NODE|18-lts
+    allowed:
+      - NODE|18-lts
+      - DOTNETCORE|7.0
+      - PYTHON|3.11
+
   - id: enableStorage
     name: Enable Storage
-    description: Create an optional Azure Storage Account for file storage
+    description: Create an optional Azure Storage Account.
     type: boolean
     required: false
     default: true
-  
+
   - id: environment
     name: Environment Type
-    description: Deployment environment (dev, staging, prod)
+    description: Deployment environment.
     type: string
     required: true
     default: dev
-    allowedValues:
+    allowed:
       - dev
       - staging
       - prod
-  
+
   - id: costCenter
     name: Cost Center
-    description: Cost center code for billing purposes
+    description: Cost center code for billing.
     type: string
     required: false
     default: engineering
-  
+
   - id: department
     name: Department
-    description: Department owning this environment
+    description: Department owning this environment.
     type: string
     required: false
     default: platform-engineering
-
-# Infrastructure template reference
-# This points to the Bicep file that defines the actual Azure resources
-deploymentTargets:
-  - infrastructureTemplate: main.bicep
-    parametersTemplate: parameters.json
-
-# Resources that will be created
-environments:
-  - webapp-demo
-
-# Define what components are deployed
-components:
-  - name: App Service Plan
-    type: Microsoft.Web/serverfarms
-    
-  - name: Web App
-    type: Microsoft.Web/sites
-    
-  - name: App Insights (Optional)
-    type: Microsoft.Insights/components
-    
-  - name: Storage Account (Optional)
-    type: Microsoft.Storage/storageAccounts
-
-# Tags applied to all resources
-tags:
-  managedBy: azure-deployment-environments
-  pattern: webapp-demo
-  templateVersion: "1.0"
-
-# Metadata for documentation
-metadata:
-  useCase: |-
-    Self-service web application provisioning with standardized infrastructure.
-    Ideal for:
-    - Web applications and static sites
-    - API backends running on App Service
-    - Application development and testing
-    - Production web workloads with compliance requirements
-  
-  patternDescription: |-
-    This environment provides a production-ready web application hosting platform.
-    
-    **Included:**
-    - App Service Plan (scalable)
-    - Web App with runtime stack of choice
-    - Managed Identity for secure authentication
-    - Optional Azure Storage Account
-    - Application Insights for monitoring
-    - Automatic tagging and RBAC governance
-    - Diagnostic logging to Log Analytics
-    
-    **Governance:**
-    - All resources tagged with department, cost center, environment
-    - Managed identity created with least-privilege role assignments
-    - RBAC roles assigned based on resource type
-    - Diagnostic logs sent to Log Analytics workspace
-    - Resource locks prevent accidental deletion
-  
-  successCriteria: |-
-    Environment deployment is successful when:
-    1. App Service Plan is created and ready
-    2. Web App is deployed with correct runtime
-    3. Managed Identity is created and assigned roles
-    4. Storage Account (if enabled) is provisioned and accessible
-    5. Application Insights is monitoring the app
-    6. All resources have correct tags
-    7. Web app responds to HTTP requests
-  
-  estimatedCost: |-
-    **Monthly cost estimate (dev):**
-    - App Service Plan (Basic): $15
-    - Storage Account: $1–5
-    - Application Insights: Free tier
-    - Total: ~$15–20/month
-    
-    **For production, costs increase with SKU selection.**
-  
-  supportedEnvironments:
-    - dev
-    - staging
-    - prod
-  
-  documentationUrl: "https://github.com/TeplrGuy/ade-catalog-demo/tree/main/catalog/webapp-demo"
