@@ -10,14 +10,12 @@ parameters:
     name: Environment Name
     description: Name for this environment deployment.
     type: string
-    required: true
     default: webapp-demo
 
   - id: appServicePlanSku
     name: App Service Plan SKU
     description: Azure App Service Plan pricing tier.
     type: string
-    required: true
     default: Basic
     allowed:
       - Basic
@@ -28,7 +26,6 @@ parameters:
     name: Web App Runtime
     description: Runtime stack for the web app.
     type: string
-    required: true
     default: NODE|18-lts
     allowed:
       - NODE|18-lts
@@ -46,7 +43,6 @@ parameters:
     name: Environment Type
     description: Deployment environment.
     type: string
-    required: true
     default: dev
     allowed:
       - dev
