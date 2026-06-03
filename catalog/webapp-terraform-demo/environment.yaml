@@ -16,6 +16,7 @@ parameters:
     name: Resource Group Name
     description: Existing resource group where resources will be deployed.
     type: string
+    default: rg-webapp-terraform-demo
 
   - id: location
     name: Azure Region
