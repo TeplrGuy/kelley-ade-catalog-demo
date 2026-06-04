@@ -28,9 +28,8 @@ parameters:
     name: App Service Plan SKU
     description: SKU for Linux App Service Plan.
     type: string
-    default: F1
+    default: B1
     allowed:
-      - F1
       - B1
       - S1
       - P1v3

@@ -35,16 +35,6 @@ variable "location" {
 variable "app_service_plan_sku" {
   type        = string
   description = "Linux App Service Plan SKU"
-
-  validation {
-    condition = contains([
-      "FREE", "F1",
-      "BASIC", "B1",
-      "STANDARD", "S1",
-      "PREMIUM", "P1V2", "P1V3"
-    ], upper(var.app_service_plan_sku))
-    error_message = "app_service_plan_sku must be one of: Free/F1, Basic/B1, Standard/S1, Premium/P1v2/P1v3."
-  }
 }
 
 variable "env_type" {
@@ -75,14 +65,6 @@ resource "random_string" "suffix" {
 
 locals {
   safe_name = replace(lower(var.environment_name), "_", "-")
-  normalized_sku = upper(var.app_service_plan_sku)
-  app_service_plan_sku_name = (
-    local.normalized_sku == "FREE" ? "F1" :
-    local.normalized_sku == "BASIC" ? "B1" :
-    local.normalized_sku == "STANDARD" ? "S1" :
-    local.normalized_sku == "PREMIUM" ? "P1V3" :
-    var.app_service_plan_sku
-  )
   common_tags = {
     managedBy       = "azure-deployment-environments"
     environment     = var.env_type
@@ -98,7 +80,7 @@ resource "azurerm_service_plan" "this" {
   location            = var.location
   resource_group_name = var.resource_group_name
   os_type             = "Linux"
-  sku_name            = local.app_service_plan_sku_name
+  sku_name            = var.app_service_plan_sku
   tags                = local.common_tags
 }
 
@@ -136,10 +118,6 @@ resource "azurerm_storage_account" "this" {
 
 output "web_app_url" {
   value = "https://${azurerm_linux_web_app.this.default_hostname}"
-}
-
-output "web_app_name" {
-  value = azurerm_linux_web_app.this.name
 }
 
 output "service_plan_name" {
