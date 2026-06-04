@@ -1,22 +1,78 @@
 ---
-title: Web App Demo Environment - Catalog Documentation
-description: Production-ready web application environment template for Azure Deployment Environments
+title: Web App Demo Pattern
+description: Approved reusable web application infrastructure pattern for repository-backed self-service catalogs
+author: Microsoft
+ms.date: 2026-06-03
+ms.topic: reference
+keywords:
+  - approved pattern
+  - web app
+  - bicep
+  - platform engineering
+estimated_reading_time: 8
 ---
 
-# Web App Demo Environment
+## Pattern summary
 
-A production-ready, governed infrastructure template for deploying scalable web applications on Azure. This environment is designed to be self-serviced by application teams while maintaining enterprise governance and compliance standards.
+Web App Demo is an approved reusable infrastructure pattern for secure web application hosting on Azure. It is catalog-friendly and can be consumed through repository workflows, CLI wrappers, and optional ADE integration.
 
-## Overview
+## Ownership boundaries
 
-This environment definition deploys a complete web application hosting platform on Azure App Service with:
+Platform team ownership:
 
-- ✅ **App Service Plan** – Scalable compute for web hosting
-- ✅ **Web App** – Your application runtime (Node.js, .NET, Python)
-- ✅ **Managed Identity** – Secure, passwordless authentication
-- ✅ **Application Insights** – Built-in monitoring and diagnostics
-- ✅ **Azure Storage Account** (optional) – File and blob storage
-- ✅ **Compliance Governance** – Automatic tagging, RBAC, audit logging
+* main.bicep structure and policy assumptions
+* naming and tagging conventions
+* RBAC placeholder design and identity posture
+* manifest alignment and review criteria
+
+Application team ownership:
+
+* parameter values for business workloads
+* application deployment package and release cadence
+* workload-specific runtime settings
+
+## Required inputs
+
+* environmentName
+* appServicePlanSku
+* webAppRuntime
+* envType
+
+Optional inputs:
+
+* enableStorage
+* costCenter
+* department
+
+## What this pattern deploys
+
+* App Service Plan
+* Web App with managed identity
+* Application Insights and Log Analytics
+* Optional Storage Account
+
+## Validation instructions
+
+CLI-first checks:
+
+    az bicep build --file catalog/webapp-demo/main.bicep
+    ./scripts/validate-template.ps1 -TemplatePath "catalog/webapp-demo/main.bicep" -ManifestPath "catalog/manifests/webapp-demo.manifest.yaml"
+
+Optional deployment dry-run:
+
+    az deployment group what-if --resource-group <RESOURCE_GROUP_NAME> --template-file catalog/webapp-demo/main.bicep --parameters @catalog/webapp-demo/parameters.json
+
+## Optional promotion path
+
+1. Draft pattern update in feature branch
+2. Run validation workflow and policy checks
+3. Platform owner approval through CODEOWNERS
+4. Promote manifest maturity from candidate to approved
+5. Publish release notes for consumer teams
+
+## ADE note
+
+The pattern supports optional ADE environment-definition compatibility through environment.yaml. Long-term operation does not require ADE.
 
 ## Use Cases
 
@@ -35,7 +91,7 @@ When deploying this environment, you'll customize these parameters:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `environmentName` | string | `webapp` | Logical name for this environment (used in resource naming) |
-| `appServicePlanSku` | enum | `Basic` | App Service Plan pricing tier: `Basic`, `Standard`, or `Premium` |
+| `appServicePlanSku` | enum | `Free` | App Service Plan pricing tier: `Free`, `Basic`, `Standard`, or `Premium` |
 | `webAppRuntime` | enum | `NODE\|18-lts` | Runtime stack: `NODE\|18-lts`, `DOTNETCORE\|7.0`, or `PYTHON\|3.11` |
 | `enableStorage` | boolean | `true` | Provision an Azure Storage Account for file storage |
 | `environment` | enum | `dev` | Environment type: `dev`, `staging`, or `prod` |
@@ -69,15 +125,15 @@ Resource Group
 
 ## Cost Estimates
 
-### Development Environment (Basic SKU)
+### Development Environment (Free SKU)
 
 | Resource | Monthly Cost | Notes |
 |----------|-------------|-------|
-| App Service Plan (B1) | ~$15 | Shared compute, suitable for dev |
+| App Service Plan (F1) | ~$0 | Best for low-traffic demos and validation |
 | Storage Account | $1–5 | Depends on usage |
 | Application Insights | ~$0 | Free tier up to 5 GB ingestion |
 | Log Analytics | ~$0 | Free tier for initial retention |
-| **Total** | **~$15–20** | |
+| **Total** | **~$0–5** | |
 
 ### Production Environment (Standard SKU)
 

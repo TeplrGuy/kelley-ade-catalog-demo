@@ -1,0 +1,50 @@
+id: webapp-demo
+version: 1.1.0
+status: approved
+owners:
+  platform: platform-engineering
+  business: app-platform-shared
+description: Approved web application hosting pattern using Bicep with Free SKU support for demo environments.
+source:
+  repository: <GITHUB_OR_AZURE_REPOS_REPO_URL>
+  path: catalog/webapp-demo
+artifacts:
+  template:
+    type: bicep
+    path: catalog/webapp-demo/main.bicep
+  environmentDefinition:
+    path: catalog/webapp-demo/environment.yaml
+  documentation:
+    path: catalog/webapp-demo/README.md
+inputs:
+  required:
+    - environmentName
+    - appServicePlanSku
+    - webAppRuntime
+    - envType
+  optional:
+    - enableStorage
+    - costCenter
+    - department
+validation:
+  commands:
+    - az bicep build --file catalog/webapp-demo/main.bicep
+    - az deployment group what-if --resource-group <RESOURCE_GROUP_NAME> --template-file catalog/webapp-demo/main.bicep --parameters @catalog/webapp-demo/parameters.json
+governance:
+  codeownersRequired: true
+  requiredApprovers:
+    - platform-engineering
+  rbacPlaceholders:
+    - WebAppContributor
+    - Reader
+  policyPlaceholders:
+    - policies/azure-policy-assignment.placeholder.json
+promotion:
+  path:
+    - candidate
+    - approved
+    - promoted
+  criteria:
+    - validation-passed
+    - security-review-passed
+    - platform-owner-approved

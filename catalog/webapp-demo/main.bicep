@@ -20,11 +20,12 @@ param environmentName string
 
 @description('App Service Plan pricing tier')
 @allowed([
+  'Free'
   'Basic'
   'Standard'
   'Premium'
 ])
-param appServicePlanSku string = 'Basic'
+param appServicePlanSku string = 'Free'
 
 @description('Web App runtime stack')
 param webAppRuntime string = 'NODE|18-lts'
@@ -64,6 +65,7 @@ var environmentNameSafe = replace(toLower(environmentName), ' ', '-')
 var timestamp = deploymentDate
 var uniqueSuffix = substring(uniqueString(resourceGroup().id), 0, 5)
 var enableStorageBool = toLower(enableStorage) == 'true'
+var use32BitWorkerProcess = appServicePlanSku == 'Free'
 
 // Resource naming with safe characters and uniqueness
 var appServicePlanName = 'asp-${environmentNameSafe}-${uniqueSuffix}'
@@ -86,6 +88,11 @@ var commonTags = {
 
 // App Service Plan SKU mapping
 var skuMap = {
+  'Free': {
+    name: 'F1'
+    tier: 'Free'
+    capacity: 1
+  }
   'Basic': {
     name: 'B1'
     tier: 'Basic'
@@ -210,7 +217,7 @@ resource webAppConfig 'Microsoft.Web/sites/config@2022-09-01' = {
     detailedErrorLoggingEnabled: true
     publishingUsername: 'username'
     scmType: 'None'
-    use32BitWorkerProcess: false
+    use32BitWorkerProcess: use32BitWorkerProcess
     webSocketsEnabled: false
     managedPipelineMode: 'Integrated'
     virtualApplications: [
